@@ -1,0 +1,3 @@
+this repository contains the sources needed to build thekogans.net build system (thekogans_make).
+
+it's used by $TOOLCHAIN_ROOT/common/bin/makebuildsystem.[git | svn] to bootstrap the build system.
