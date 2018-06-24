@@ -18,7 +18,25 @@
 # along with thekogans_toolchain. If not, see <http://www.gnu.org/licenses/>.
 
 # Create a local sandbox.
-export DEVELOPMENT_ROOT=`pwd`
+export DEVELOPMENT_ROOT="$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)"
+cd "$DEVELOPMENT_ROOT"
+check_errors $?
+if [ -e "$DEVELOPMENT_ROOT"/.thekogans_build_system_done ]; then
+    exit 0
+fi
+
+# Create the environment.
+if [ "$TOOLCHAIN_ROOT" == "" ]; then
+    if [ ! -e setenvironment ]; then
+        echo "setenvironment not found."
+        exit 1
+    fi
+    . setenvironment "$@"
+fi
+
+# Create destonation folders.
+mkdir -p "$TOOLCHAIN_DIR"/bin "$TOOLCHAIN_DIR"/config
+check_errors $?
 
 function get_tarball_version () {
     local organization=
@@ -362,3 +380,8 @@ rm -rf "$TOOLCHAIN_DIR"/config/thekogans_curllib-"$thekogans_curllib_version".xm
    "$TOOLCHAIN_DIR"/include\
    "$TOOLCHAIN_DIR"/lib\
    "$TOOLCHAIN_DIR"/share
+
+touch "$DEVELOPMENT_ROOT"/.thekogans_build_system_done
+check_errors $?
+
+exit 0
