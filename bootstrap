@@ -107,9 +107,9 @@ fi
 # thekogans_make
 # In order to bootstrap the build system, we create a
 # temporary toolchain to build thekogans_make. After
-# that we use it to build XcodeEditor, zlib, openssl,
-# pugixml and curl. Once that's done we build it one
-# more time using the newly built libraries.
+# that we use it to build XcodeEditor, zlib, openssl
+# and curl. Once that's done we build it one# more
+# time using the newly built libraries.
 thekogans_util_version="$(get_tarball_version -o:thekogans -p:util)"
 thekogans_make_core_version="$(get_tarball_version -o:thekogans -p:make_core)"
 thekogans_make_version="$(get_tarball_version -o:thekogans -p:make)"
@@ -151,27 +151,6 @@ if [ ! -f .thekogans_nasm-"$thekogans_nasm_version"_done ]; then
     rm -r thekogans_nasm-"$thekogans_nasm_version"
     check_errors $?
     touch .thekogans_nasm-"$thekogans_nasm_version"_done
-    check_errors $?
-fi
-
-# thekogans_pugixml
-thekogans_pugixml_version="$(get_tarball_version -o:thekogans -p:pugixml)"
-if [ ! -f .thekogans_pugixml-"$thekogans_pugixml_version"_done ]; then
-    if [ -d thekogans_pugixml-"$thekogans_pugixml_version" ]; then
-        rm -rf thekogans_pugixml-"$thekogans_pugixml_version"
-        check_errors $?
-    fi
-    tar zxvf thekogans_pugixml-"$thekogans_pugixml_version".tar.gz
-    check_errors $?
-    cd thekogans_pugixml-"$thekogans_pugixml_version"
-    check_errors $?
-    ./install -c:Release
-    check_errors $?
-    cd ..
-    check_errors $?
-    rm -rf thekogans_pugixml-"$thekogans_pugixml_version"
-    check_errors $?
-    touch .thekogans_pugixml-"$thekogans_pugixml_version"_done
     check_errors $?
 fi
 
@@ -371,7 +350,6 @@ check_errors $?
 rm -rf "$TOOLCHAIN_DIR"/config/thekogans_curllib-"$thekogans_curllib_version".xml\
    "$TOOLCHAIN_DIR"/config/thekogans_openssl_crypto-"$thekogans_openssl_version".xml\
    "$TOOLCHAIN_DIR"/config/thekogans_openssl_ssl-"$thekogans_openssl_version".xml\
-   "$TOOLCHAIN_DIR"/config/thekogans_pugixml-"$thekogans_pugixml_version".xml\
    "$TOOLCHAIN_DIR"/config/thekogans_zlib-"$thekogans_zlib_version".xml\
    "$TOOLCHAIN_DIR"/config/thekogans_xerces-"$thekogans_xerces_version".xml\
    "$TOOLCHAIN_DIR"/config/thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version".xml\
