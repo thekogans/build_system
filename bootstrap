@@ -34,6 +34,14 @@ if [ "$TOOLCHAIN_ROOT" == "" ]; then
     . setenvironment "$@"
 fi
 
+# In case we're not in a prestine environment, nake it so.
+# This way there will not be any half baked crap left over
+# to trip us up later..
+if [ -d "$TOOLCHAIN_DIR"/config ]; then
+    rm -rf "$TOOLCHAIN_DIR"/config
+    check_errors $?
+fi
+
 # Create destonation folders.
 mkdir -p "$TOOLCHAIN_DIR"/bin "$TOOLCHAIN_DIR"/config
 check_errors $?
@@ -108,7 +116,7 @@ fi
 # In order to bootstrap the build system, we create a
 # temporary toolchain to build thekogans_make. After
 # that we use it to build XcodeEditor, zlib, openssl
-# and curl. Once that's done we build it one# more
+# and curl. Once that's done we build it one more
 # time using the newly built libraries.
 thekogans_util_version="$(get_tarball_version -o:thekogans -p:util)"
 thekogans_make_core_version="$(get_tarball_version -o:thekogans -p:make_core)"
