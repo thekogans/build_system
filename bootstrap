@@ -36,7 +36,7 @@ fi
 
 # In case we're not in a prestine environment, make it so.
 # This way there will not be any half baked crap left over
-# to trip us up later..
+# to trip us up later.
 if [ -d "$TOOLCHAIN_DIR"/config ]; then
     rm -rf "$TOOLCHAIN_DIR"/config
     check_errors $?
