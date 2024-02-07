@@ -42,7 +42,7 @@ if [ -d "$TOOLCHAIN_DIR"/config ]; then
     check_errors $?
 fi
 
-# Create destonation folders.
+# Create destination folders.
 mkdir -p "$TOOLCHAIN_DIR"/bin "$TOOLCHAIN_DIR"/config
 check_errors $?
 
