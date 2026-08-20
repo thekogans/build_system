@@ -154,7 +154,7 @@ if [ ! -f .thekogans_zlib-"$thekogans_zlib_version"_done ]; then
     check_errors $?
     cd thekogans_zlib-"$thekogans_zlib_version"
     check_errors $?
-    ./install -c:Release
+    ./install
     check_errors $?
     cd ..
     check_errors $?
@@ -198,7 +198,7 @@ if [ ! -f .thekogans_openssl-"$thekogans_openssl_version"_done ]; then
     check_errors $?
     cd thekogans_openssl-"$thekogans_openssl_version"
     check_errors $?
-    ./install -c:Release
+    ./install
     check_errors $?
     cd ..
     check_errors $?
@@ -219,7 +219,7 @@ if [ ! -f .thekogans_curl-"$thekogans_curl_version"_done ]; then
     check_errors $?
     cd thekogans_curl-"$thekogans_curl_version"
     check_errors $?
-    ./install -c:Release -t:Static
+    ./install
     check_errors $?
     cd ..
     check_errors $?
