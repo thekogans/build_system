@@ -143,27 +143,6 @@ if [ ! -f "$(get_toolchain_program -o:thekogans -p:make -v:$thekogans_make_versi
     check_errors $?
 fi
 
-# thekogans_nasm
-thekogans_nasm_version="$(get_tarball_version -o:thekogans -p:nasm)"
-if [ ! -f .thekogans_nasm-"$thekogans_nasm_version"_done ]; then
-    if [ -d thekogans_nasm-"$thekogans_nasm_version" ]; then
-        rm -rf thekogans_nasm-"$thekogans_nasm_version"
-        check_errors $?
-    fi
-    tar zxvf thekogans_nasm-"$thekogans_nasm_version".tar.gz
-    check_errors $?
-    cd thekogans_nasm-"$thekogans_nasm_version"
-    check_errors $?
-    ./install -c:Release -t:Static
-    check_errors $?
-    cd ..
-    check_errors $?
-    rm -r thekogans_nasm-"$thekogans_nasm_version"
-    check_errors $?
-    touch .thekogans_nasm-"$thekogans_nasm_version"_done
-    check_errors $?
-fi
-
 # thekogans_zlib
 thekogans_zlib_version="$(get_tarball_version -o:thekogans -p:zlib)"
 if [ ! -f .thekogans_zlib-"$thekogans_zlib_version"_done ]; then
@@ -182,48 +161,6 @@ if [ ! -f .thekogans_zlib-"$thekogans_zlib_version"_done ]; then
     rm -rf thekogans_zlib-"$thekogans_zlib_version"
     check_errors $?
     touch .thekogans_zlib-"$thekogans_zlib_version"_done
-    check_errors $?
-fi
-
-# thekogans_xerces
-thekogans_xerces_version="$(get_tarball_version -o:thekogans -p:xerces)"
-if [ ! -f .thekogans_xerces-"$thekogans_xerces_version"_done ]; then
-    if [ -d thekogans_xerces-"$thekogans_xerces_version" ]; then
-        rm -rf thekogans_xerces-"$thekogans_xerces_version"
-        check_errors $?
-    fi
-    tar zxvf thekogans_xerces-"$thekogans_xerces_version".tar.gz
-    check_errors $?
-    cd thekogans_xerces-"$thekogans_xerces_version"
-    check_errors $?
-    ./install -c:Release
-    check_errors $?
-    cd ..
-    check_errors $?
-    rm -rf thekogans_xerces-"$thekogans_xerces_version"
-    check_errors $?
-    touch .thekogans_xerces-"$thekogans_xerces_version"_done
-    check_errors $?
-fi
-
-# thekogans_CppUnitXLite
-thekogans_CppUnitXLite_version="$(get_tarball_version -o:thekogans -p:CppUnitXLite)"
-if [ ! -f .thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version"_done ]; then
-    if [ -d thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version" ]; then
-        rm -rf thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version"
-        check_errors $?
-    fi
-    tar zxvf thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version".tar.gz
-    check_errors $?
-    cd thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version"
-    check_errors $?
-    ./install
-    check_errors $?
-    cd ..
-    check_errors $?
-    rm -rf thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version"
-    check_errors $?
-    touch .thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version"_done
     check_errors $?
 fi
 
@@ -268,27 +205,6 @@ if [ ! -f .thekogans_openssl-"$thekogans_openssl_version"_done ]; then
     rm -rf thekogans_openssl-"$thekogans_openssl_version"
     check_errors $?
     touch .thekogans_openssl-"$thekogans_openssl_version"_done
-    check_errors $?
-fi
-
-# thekogans_curllib
-thekogans_curllib_version="$(get_tarball_version -o:thekogans -p:curllib)"
-if [ ! -f .thekogans_curllib-"$thekogans_curllib_version"_done ]; then
-    if [ -d thekogans_curllib-"$thekogans_curllib_version" ]; then
-        rm -rf thekogans_curllib-"$thekogans_curllib_version"
-        check_errors $?
-    fi
-    tar zxvf thekogans_curllib-"$thekogans_curllib_version".tar.gz
-    check_errors $?
-    cd thekogans_curllib-"$thekogans_curllib_version"
-    check_errors $?
-    ./install -c:Release
-    check_errors $?
-    cd ..
-    check_errors $?
-    rm -rf thekogans_curllib-"$thekogans_curllib_version"
-    check_errors $?
-    touch .thekogans_curllib-"$thekogans_curllib_version"_done
     check_errors $?
 fi
 
@@ -355,19 +271,6 @@ fi
 # Copy the build system version so that checkforupdates can do it's job.
 cp -v version "$TOOLCHAIN_DIR"/bin/version
 check_errors $?
-
-# cleanup
-rm -rf "$TOOLCHAIN_DIR"/config/thekogans_curllib-"$thekogans_curllib_version".xml\
-   "$TOOLCHAIN_DIR"/config/thekogans_openssl_crypto-"$thekogans_openssl_version".xml\
-   "$TOOLCHAIN_DIR"/config/thekogans_openssl_ssl-"$thekogans_openssl_version".xml\
-   "$TOOLCHAIN_DIR"/config/thekogans_zlib-"$thekogans_zlib_version".xml\
-   "$TOOLCHAIN_DIR"/config/thekogans_xerces-"$thekogans_xerces_version".xml\
-   "$TOOLCHAIN_DIR"/config/thekogans_CppUnitXLite-"$thekogans_CppUnitXLite_version".xml\
-   "$TOOLCHAIN_DIR"/config/thekogans_XcodeEditor-"$thekogans_XcodeEditor_version".xml\
-   "$TOOLCHAIN_DIR"/resources/mime-types.txt\
-   "$TOOLCHAIN_DIR"/include\
-   "$TOOLCHAIN_DIR"/lib\
-   "$TOOLCHAIN_DIR"/share
 
 touch "$DEVELOPMENT_ROOT"/.thekogans_build_system_done
 check_errors $?
