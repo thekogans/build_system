@@ -114,35 +114,6 @@ if [ ! -f .gnu_make-"$gnu_make_version"_done ]; then
     check_errors $?
 fi
 
-# thekogans_make
-# In order to bootstrap the build system, we create a
-# temporary toolchain to build thekogans_make. After
-# that we use it to build XcodeEditor, zlib, openssl
-# and curl. Once that's done we build it one more
-# time using the newly built libraries.
-thekogans_util_version="$(get_tarball_version -o:thekogans -p:util)"
-thekogans_make_core_version="$(get_tarball_version -o:thekogans -p:make_core)"
-thekogans_make_version="$(get_tarball_version -o:thekogans -p:make)"
-if [ ! -f "$(get_toolchain_program -o:thekogans -p:make -v:$thekogans_make_version)" ]; then
-    if [ -d thekogans ]; then
-        rm -rf thekogans
-        check_errors $?
-    fi
-    tar zxvf thekogans_util-"$thekogans_util_version".tar.gz
-    check_errors $?
-    tar zxvf thekogans_make_core-"$thekogans_make_core_version".tar.gz
-    check_errors $?
-    tar zxvf thekogans_make-"$thekogans_make_version".tar.gz
-    check_errors $?
-    cd thekogans/make-"$thekogans_make_version"
-    check_errors $?
-    ./bootstrap -uv:"$thekogans_util_version" -mcv:"$thekogans_make_core_version" -mv:"$thekogans_make_version"
-    check_errors $?
-    cd ../..
-    rm -rf thekogans
-    check_errors $?
-fi
-
 # thekogans_zlib
 thekogans_zlib_version="$(get_tarball_version -o:thekogans -p:zlib)"
 if [ ! -f .thekogans_zlib-"$thekogans_zlib_version"_done ]; then
@@ -162,29 +133,6 @@ if [ ! -f .thekogans_zlib-"$thekogans_zlib_version"_done ]; then
     check_errors $?
     touch .thekogans_zlib-"$thekogans_zlib_version"_done
     check_errors $?
-fi
-
-# thekogans_XcodeEditor
-if [ "$TOOLCHAIN_OS" == "OSX" ]; then
-    thekogans_XcodeEditor_version="$(get_tarball_version -o:thekogans -p:XcodeEditor)"
-    if [ ! -f .thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"_done ]; then
-        if [ -d thekogans_XcodeEditor-"$thekogans_XcodeEditor_version" ]; then
-            rm -rf thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"
-            check_errors $?
-        fi
-        tar zxvf thekogans_XcodeEditor-"$thekogans_XcodeEditor_version".tar.gz
-        check_errors $?
-        cd thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"
-        check_errors $?
-        ./install -c:Release
-        check_errors $?
-        cd ..
-        check_errors $?
-        rm -rf thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"
-        check_errors $?
-        touch .thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"_done
-        check_errors $?
-    fi
 fi
 
 # thekogans_openssl
@@ -227,6 +175,58 @@ if [ ! -f .thekogans_curl-"$thekogans_curl_version"_done ]; then
     check_errors $?
     touch .thekogans_curl-"$thekogans_curl_version"_done
     check_errors $?
+fi
+
+# thekogans_make
+# In order to bootstrap the build system, we create a
+# temporary toolchain to build thekogans_make. After
+# that we use it to build XcodeEditor, zlib, openssl
+# and curl. Once that's done we build it one more
+# time using the newly built libraries.
+thekogans_util_version="$(get_tarball_version -o:thekogans -p:util)"
+thekogans_make_core_version="$(get_tarball_version -o:thekogans -p:make_core)"
+thekogans_make_version="$(get_tarball_version -o:thekogans -p:make)"
+if [ ! -f "$(get_toolchain_program -o:thekogans -p:make -v:$thekogans_make_version)" ]; then
+    if [ -d thekogans ]; then
+        rm -rf thekogans
+        check_errors $?
+    fi
+    tar zxvf thekogans_util-"$thekogans_util_version".tar.gz
+    check_errors $?
+    tar zxvf thekogans_make_core-"$thekogans_make_core_version".tar.gz
+    check_errors $?
+    tar zxvf thekogans_make-"$thekogans_make_version".tar.gz
+    check_errors $?
+    cd thekogans/make-"$thekogans_make_version"
+    check_errors $?
+    ./bootstrap -uv:"$thekogans_util_version" -mcv:"$thekogans_make_core_version" -mv:"$thekogans_make_version"
+    check_errors $?
+    cd ../..
+    rm -rf thekogans
+    check_errors $?
+fi
+
+# thekogans_XcodeEditor
+if [ "$TOOLCHAIN_OS" == "OSX" ]; then
+    thekogans_XcodeEditor_version="$(get_tarball_version -o:thekogans -p:XcodeEditor)"
+    if [ ! -f .thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"_done ]; then
+        if [ -d thekogans_XcodeEditor-"$thekogans_XcodeEditor_version" ]; then
+            rm -rf thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"
+            check_errors $?
+        fi
+        tar zxvf thekogans_XcodeEditor-"$thekogans_XcodeEditor_version".tar.gz
+        check_errors $?
+        cd thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"
+        check_errors $?
+        ./install -c:Release
+        check_errors $?
+        cd ..
+        check_errors $?
+        rm -rf thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"
+        check_errors $?
+        touch .thekogans_XcodeEditor-"$thekogans_XcodeEditor_version"_done
+        check_errors $?
+    fi
 fi
 
 # thekogans_make
