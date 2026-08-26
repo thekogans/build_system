@@ -114,69 +114,6 @@ if [ ! -f .gnu_make-"$gnu_make_version"_done ]; then
     check_errors $?
 fi
 
-# thekogans_zlib
-thekogans_zlib_version="$(get_tarball_version -o:thekogans -p:zlib)"
-if [ ! -f .thekogans_zlib-"$thekogans_zlib_version"_done ]; then
-    if [ -d thekogans_zlib-"$thekogans_zlib_version" ]; then
-        rm -rf thekogans_zlib-"$thekogans_zlib_version"
-        check_errors $?
-    fi
-    tar zxvf thekogans_zlib-"$thekogans_zlib_version".tar.gz
-    check_errors $?
-    cd thekogans_zlib-"$thekogans_zlib_version"
-    check_errors $?
-    ./install
-    check_errors $?
-    cd ..
-    check_errors $?
-    rm -rf thekogans_zlib-"$thekogans_zlib_version"
-    check_errors $?
-    touch .thekogans_zlib-"$thekogans_zlib_version"_done
-    check_errors $?
-fi
-
-# thekogans_openssl
-thekogans_openssl_version="$(get_tarball_version -o:thekogans -p:openssl)"
-if [ ! -f .thekogans_openssl-"$thekogans_openssl_version"_done ]; then
-    if [ -d thekogans_openssl-"$thekogans_openssl_version" ]; then
-        rm -rf thekogans_openssl-"$thekogans_openssl_version"
-        check_errors $?
-    fi
-    tar zxvf thekogans_openssl-"$thekogans_openssl_version".tar.gz
-    check_errors $?
-    cd thekogans_openssl-"$thekogans_openssl_version"
-    check_errors $?
-    ./install
-    check_errors $?
-    cd ..
-    check_errors $?
-    rm -rf thekogans_openssl-"$thekogans_openssl_version"
-    check_errors $?
-    touch .thekogans_openssl-"$thekogans_openssl_version"_done
-    check_errors $?
-fi
-
-# thekogans_curl
-thekogans_curl_version="$(get_tarball_version -o:thekogans -p:curl)"
-if [ ! -f .thekogans_curl-"$thekogans_curl_version"_done ]; then
-    if [ -d thekogans_curl-"$thekogans_curl_version" ]; then
-        rm -rf thekogans_curl-"$thekogans_curl_version"
-        check_errors $?
-    fi
-    tar zxvf thekogans_curl-"$thekogans_curl_version".tar.gz
-    check_errors $?
-    cd thekogans_curl-"$thekogans_curl_version"
-    check_errors $?
-    ./install
-    check_errors $?
-    cd ..
-    check_errors $?
-    rm -rf thekogans_curl-"$thekogans_curl_version"
-    check_errors $?
-    touch .thekogans_curl-"$thekogans_curl_version"_done
-    check_errors $?
-fi
-
 # thekogans_make
 # In order to bootstrap the build system, we create a
 # temporary toolchain to build thekogans_make. After
