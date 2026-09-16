@@ -79,6 +79,10 @@ function get_tarball_version () {
     fi
 }
 
+if [ "$TOOLCHAIN_OS" != "OSX" ]; then
+    TAR_FLAGS=--warning=no-unknown-keyword
+fi
+
 # thekogans_make
 # We need thekogans_make to read thekogans_make.xml files and resolve the
 # dependencies. We build it here without any dependencies (save for util and
@@ -92,11 +96,11 @@ if [ ! -f "$(get_toolchain_program -o:thekogans -p:make -v:$thekogans_make_versi
         rm -rf thekogans
         check_errors $?
     fi
-    tar zxvf thekogans_util-"$thekogans_util_version".tar.gz
+    tar "$TAR_FLAGS" -zxvf thekogans_util-"$thekogans_util_version".tar.gz
     check_errors $?
-    tar zxvf thekogans_make_core-"$thekogans_make_core_version".tar.gz
+    tar "$TAR_FLAGS" -zxvf thekogans_make_core-"$thekogans_make_core_version".tar.gz
     check_errors $?
-    tar zxvf thekogans_make-"$thekogans_make_version".tar.gz
+    tar "$TAR_FLAGS" -zxvf thekogans_make-"$thekogans_make_version".tar.gz
     check_errors $?
     cd thekogans/make-"$thekogans_make_version"
     check_errors $?
@@ -114,11 +118,11 @@ if [ ! -f .thekogans_make-"$thekogans_make_version"_done ]; then
         rm -rf thekogans
         check_errors $?
     fi
-    tar zxvf thekogans_util-"$thekogans_util_version".tar.gz
+    tar "$TAR_FLAGS" -zxvf thekogans_util-"$thekogans_util_version".tar.gz
     check_errors $?
-    tar zxvf thekogans_make_core-"$thekogans_make_core_version".tar.gz
+    tar "$TAR_FLAGS" -zxvf thekogans_make_core-"$thekogans_make_core_version".tar.gz
     check_errors $?
-    tar zxvf thekogans_make-"$thekogans_make_version".tar.gz
+    tar "$TAR_FLAGS" -zxvf thekogans_make-"$thekogans_make_version".tar.gz
     check_errors $?
     cd thekogans/util-"$thekogans_util_version"/examples/genguid
     check_errors $?
